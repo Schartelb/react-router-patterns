@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom'
 
 
 function DogDetails({ dogs }) {
-    const { dogname } = useParams()
+    console.log(useParams())
     return (
-        <h2>This is {dogname}</h2>
+        <h2>This is </h2>
     )
 }
 

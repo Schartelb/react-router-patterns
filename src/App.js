@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import { Route, Switch, NavLink, Redirect } from 'react-router-dom';
+import { Route, Switch, NavLink, Redirect, useParams } from 'react-router-dom';
 import './App.css';
 import DogList from './DogList';
 import DogDetails from './DogDetails'
 
 
-class App extends Component {
-  static defaultProps = {
+const App=()=> {
+  const defaultProps = {
     dogs: [
       {
         name: "Whiskey",
@@ -51,7 +51,6 @@ class App extends Component {
     ]
   }
 
-   render(){
   return (
     <div className="App">
       <nav >
@@ -59,15 +58,16 @@ class App extends Component {
       </nav>
       <Switch>
         <Route exact path="/dogs" >
-          <DogList dogs={this.props.dogs}/>
+          <DogList dogs={defaultProps}/>
         </Route>
         <Route path="/dogs/:dogname" >
-          <DogDetails dogs={this.props.dogs} /> // what props will this need?
+          <DogDetails dogs={defaultProps} />
         </Route>
         <Redirect to="/dogs" />
       </Switch>
 
     </div>
   );
-  }}
+  }
+
 export default App;
