@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react'
+import { BrowserRouter } from "react-router-dom";
 import { Route, Switch, NavLink, Redirect, useParams } from 'react-router-dom';
 import './App.css';
 import DogList from './DogList';
@@ -53,19 +54,20 @@ const App=()=> {
 
   return (
     <div className="App">
-      <nav >
-        <NavLink to="/">Dog List</NavLink>
-      </nav>
-      <Switch>
-        <Route exact path="/dogs" >
-          <DogList dogs={defaultProps}/>
-        </Route>
-        <Route path="/dogs/:dogname" >
-          <DogDetails dogs={defaultProps} />
-        </Route>
-        <Redirect to="/dogs" />
-      </Switch>
-
+      <BrowserRouter>
+        <nav >
+          <NavLink to="/">Dog List</NavLink>
+        </nav>
+        <Switch>
+          <Route exact path="/dogs" >
+            <DogList dogs={defaultProps.dogs}/>
+          </Route>
+          <Route path="/dogs/:dogname" >
+            <DogDetails dogs={defaultProps.dogs} />
+          </Route>
+          <Redirect to="/dogs" />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
   }
