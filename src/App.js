@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter } from "react-router-dom";
 import { Route, Switch, NavLink, Redirect, useParams } from 'react-router-dom';
 import './App.css';
 import DogList from './DogList';
 import DogDetails from './DogDetails'
+import ColorPage from './ColorPage';
+import ColorList from './ColorList';
+import ColorForm from './ColorForm';
 
 
-const App=()=> {
+const App = () => {
   const defaultProps = {
     dogs: [
       {
@@ -51,11 +54,28 @@ const App=()=> {
       }
     ]
   }
-
+  const INITIAL_COLORS = [{ name: "blue", hex: "#0000FF" }, { name: "red", hex: "#FF0000" }, { name: "green", hex: "#00FF00" }]
+  const [colorList, setColorList] = useState(INITIAL_COLORS)
+  useEffect(()=>{
+    console.log(colorList)
+  },[colorList])
   return (
     <div className="App">
       <BrowserRouter>
-        <nav >
+        <Switch>
+          <Route exact path="/colors/new">
+            <ColorForm setColorList={setColorList} />
+          </Route>
+          <Route path="/colors/:colorname" >
+            <ColorPage colorList={colorList}/>
+          </Route>
+
+          <Route path="/colors">
+            <ColorList colorList={colorList} />
+          </Route>
+          <Redirect to="/colors" />
+        </Switch>
+        {/* <nav >
           <NavLink to="/">Dog List</NavLink>
         </nav>
         <Switch>
@@ -66,10 +86,10 @@ const App=()=> {
             <DogDetails dogs={defaultProps.dogs} />
           </Route>
           <Redirect to="/dogs" />
-        </Switch>
+        </Switch> */}
       </BrowserRouter>
     </div>
   );
-  }
+}
 
 export default App;
